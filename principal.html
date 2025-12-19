@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Canvas 1080x1920</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+	<main>
+		<section class="pink-section">
+			<h1 class="main-title font-merry float-subtle">Merry Xmas</h1>
+			<p class="subtitle font-last blink-gentle">This is not just a regular christmas gift, check it out...</p>
+			<div class="video-container">
+				<label for="videoInput" class="video-label">Choose a video to play</label>
+				<input id="videoInput" type="file" accept="video/*" style="display:none">
+				<video id="promoVideo" controls preload="metadata">
+					<source id="promoSource" src="media/videofinal.mp4" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+
+			<p class="closing-text">I hope this gift is better than any you’ve received before. And if you like it, I hope you know it’s what you deserve, and even more.</p>
+			<canvas id="mobileCanvas" width="1080" height="1920" aria-label="Mobile canvas"></canvas>
+		</section>
+	</main>
+
+	<script>
+	(function(){
+		const canvas = document.getElementById('mobileCanvas');
+		const ctx = canvas.getContext('2d');
+
+		function resizeCanvasForDisplay() {
+			const dpr = window.devicePixelRatio || 1;
+			// scale CSS size to fit viewport width while preserving aspect ratio
+			const vw = Math.min(window.innerWidth, 540);
+			const cssWidth = vw;
+			const aspect = 1080 / 100;
+			const cssHeight = Math.round(cssWidth / aspect);
+
+			// size the pink section to match the canvas display size
+			const section = document.querySelector('.pink-section');
+			if (section) {
+				section.style.width = cssWidth + 'px';
+				// do not set a fixed minHeight so the section height follows its content
+			}
+
+			canvas.style.width = cssWidth + 'px';
+			canvas.style.height = cssHeight + 'px';
+
+			canvas.width = Math.round(1080 * dpr);
+			canvas.height = Math.round(400 * dpr);
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+			// keep canvas transparent; clear any drawing
+			ctx.clearRect(0, 0, 1080, 1920);
+		}
+
+		window.addEventListener('resize', resizeCanvasForDisplay, {passive:true});
+		resizeCanvasForDisplay();
+	})();
+
+	// video file loader: allow user to pick a local video file to play
+	(function(){
+		const input = document.getElementById('videoInput');
+		const video = document.getElementById('promoVideo');
+		const source = document.getElementById('promoSource');
+		if (!input || !video || !source) return;
+		const label = document.querySelector('.video-label');
+		if (label) label.addEventListener('click', () => input.click());
+		input.addEventListener('change', (e) => {
+			const file = e.target.files && e.target.files[0];
+			if (!file) return;
+			const url = URL.createObjectURL(file);
+			source.src = url;
+			video.load();
+		});
+	})();
+	</script>
+</body>
+</html>
+

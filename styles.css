@@ -1,0 +1,271 @@
+html, body {
+	height: 100%;
+	margin: 0;
+}
+
+/* Load project-local fonts */
+@font-face {
+	font-family: 'MerryChristmas';
+	src: url('merry_christmas/MerryChristmasStar.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'LastChristmas';
+	src: url('last_christmas/LastChristmas_PERSONAL_USE_ONLY.otf') format('opentype');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'SantaNatale';
+	src: url('santa_natale/Santa Natale PERSONAL USE ONLY!.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'ChristmasHearths';
+	src: url('christmas_hearths/ChristmasHearths.ttf') format('truetype');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+body {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	background: #ffffff;
+	-webkit-font-smoothing: antialiased;
+}
+
+main {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: 20px;
+	width: 100%;
+}
+
+.pink-section {
+		/* background image with green overlay (green above image at 80% opacity) */
+		background-image: url('media/imagen1.png');
+		background-size: cover;
+		background-position: center center;
+		display: inline-block;
+		position: relative;
+		border-radius: 20px;
+		box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+		overflow: hidden;
+		touch-action: manipulation;
+		box-sizing: border-box;
+		padding: 2.5rem 14px 4.5em; /* extra top padding and ~4.5em bottom so background ends after last text */
+		/* entrance animation: subtle fade + rise (slower) */
+		opacity: 0;
+		transform: translateY(12px) scale(0.995);
+		will-change: opacity, transform;
+		animation: sectionEnter 1400ms cubic-bezier(.22,.9,.37,1) forwards;
+		animation-delay: 300ms;
+}
+
+.pink-section::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	/* multi-stop christmas green gradient */
+	background: linear-gradient(180deg,
+		rgba(46,125,50,0.92) 0%,
+		rgba(76,175,80,0.86) 35%,
+		rgba(56,142,60,0.82) 65%,
+		rgba(27,94,32,0.8) 100%
+	);
+	pointer-events: none;
+	z-index: 0;
+	border-radius: inherit;
+}
+
+.pink-section > * { position: relative; z-index: 1; }
+
+@keyframes sectionEnter {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.995);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+canvas#mobileCanvas {
+	background: transparent;
+	display: block;
+	max-width: 100%;
+	height: auto;
+	border: 0;
+	border-radius: 12px;
+}
+
+/* Hide the canvas so the page ends after the last text */
+/* (removed forced hide to allow fixed-size canvas to display) */
+
+.canvas-wrap {
+	position: relative;
+	display: inline-block;
+}
+
+.main-title {
+	margin: 1.5rem 0 8px 0; /* moved down a bit */
+	font-size: 65px;
+	line-height: 1.02;
+	color: #ffffff;
+	text-align: center;
+	pointer-events: none;
+	font-weight: 700;
+	text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+	letter-spacing: 3px;
+	font-family: 'MerryChristmas', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.main-title .r { color: #ff2b2b; }
+.main-title .w { color: #ffffff; }
+
+/* Font placeholders: replace with real font-family names or imports if available */
+.font-merry { font-family: 'MerryChristmas', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+.font-last { font-family: 'LastChristmas', Georgia, 'Times New Roman', serif; }
+
+@keyframes titleEntrance {
+	from { opacity: 0; transform: translateY(-12px) scale(.995); }
+	to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes slideInTitle {
+	from {
+		opacity: 0;
+		transform: translateY(-24px) scale(0.98);
+	}
+	60% {
+		opacity: 1;
+		transform: translateY(6px) scale(1.02);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.subtitle {
+	margin: 0;
+	/* move subtitle closer to the main title */
+	margin-top: 2em;
+		font-size: 45px;
+	line-height: 1.08;
+	color: #ffffff;
+	text-align: center;
+	pointer-events: none;
+	font-weight: 600;
+	font-family: 'LastChristmas', 'MerryChristmas', 'ChristmasHearths', 'SantaNatale', serif;
+	max-width: 86%;
+	margin-inline: auto;
+	opacity: 1;
+	/* subtle darker shadow for better contrast */
+	text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+	letter-spacing: 3px;
+}
+
+.video-container {
+	width: 100%;
+	max-width: 100%;
+	margin-top: 1.25rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.video-label {
+	background: rgba(255,255,255,0.08);
+	color: #fff;
+	padding: 6px 12px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	user-select: none;
+	text-shadow: none;
+}
+
+#promoVideo {
+	width: 100%;
+	max-width: 420px; /* cap width so player is a bit smaller */
+	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.closing-text {
+	margin: 0;
+	margin-top: 3em; /* reduced spacing from video (half) */
+	color: #ffffff;
+	font-size: 35px;
+	line-height: 1.08;
+	text-align: center;
+	text-shadow: 0 2px 6px rgba(0,0,0,0.45);
+	font-family: 'LastChristmas', 'MerryChristmas', serif;
+	max-width: 86%;
+	margin-inline: auto;
+	letter-spacing: 3px;
+}
+
+@keyframes slideInSubtitle {
+	from {
+		opacity: 0;
+		transform: translateY(-12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Gentle blink (subtle opacity pulse) */
+@keyframes blinkGentle {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.88; }
+}
+
+/* Subtle floating motion (small vertical translate) */
+@keyframes floatSubtle {
+	0% { transform: translateY(0); }
+	25% { transform: translateY(-8px); }
+	50% { transform: translateY(0); }
+	75% { transform: translateY(8px); }
+	100% { transform: translateY(0); }
+}
+
+/* Utility classes: add to elements to enable the effects */
+.blink-gentle {
+	animation: blinkGentle 2.4s ease-in-out infinite;
+}
+
+.float-subtle {
+	display: inline-block; /* ensures transform doesn't affect layout flow */
+	will-change: transform, opacity;
+	transform-origin: center center;
+	animation: floatSubtle 3s ease-in-out infinite;
+}
+
+/* Example combined usage: keep entrance animation but add a longer floating motion */
+.main-title.float-subtle {
+	transform-origin: center center;
+	animation: titleEntrance 900ms ease-out forwards, floatSubtle 3s ease-in-out 600ms infinite;
+}
+
+.subtitle.blink-gentle {
+	animation: slideInSubtitle 700ms ease-out forwards, blinkGentle 2.4s ease-in-out 900ms infinite;
+}
+
