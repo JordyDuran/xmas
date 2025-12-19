@@ -53,24 +53,26 @@ main {
 }
 
 .pink-section {
-		/* background image with green overlay (green above image at 80% opacity) */
-		background-image: url('media/imagen1.png');
-		background-size: cover;
-		background-position: center center;
-		display: inline-block;
-		position: relative;
-		border-radius: 20px;
-		box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-		overflow: hidden;
-		touch-action: manipulation;
-		box-sizing: border-box;
-		padding: 2.5rem 14px 4.5em; /* extra top padding and ~4.5em bottom so background ends after last text */
-		/* entrance animation: subtle fade + rise (slower) */
-		opacity: 0;
-		transform: translateY(12px) scale(0.995);
-		will-change: opacity, transform;
-		animation: sectionEnter 1400ms cubic-bezier(.22,.9,.37,1) forwards;
-		animation-delay: 300ms;
+	/* background image with green overlay (green above image at 80% opacity) */
+	background-image: url('media/imagen1.png');
+	background-size: cover;
+	background-position: center center;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	border-radius: 20px;
+	box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+	overflow: hidden;
+	touch-action: manipulation;
+	box-sizing: border-box;
+	padding: 2.5rem 14px 4.5em; /* extra top padding and ~4.5em bottom so background ends after last text */
+	/* entrance animation: subtle fade + rise (slower) */
+	opacity: 0;
+	transform: translateY(12px) scale(0.995);
+	will-change: opacity, transform;
+	animation: sectionEnter 1400ms cubic-bezier(.22,.9,.37,1) forwards;
+	animation-delay: 300ms;
 }
 
 .pink-section::before {
@@ -189,6 +191,7 @@ canvas#mobileCanvas {
 }
 
 .video-label {
+	display: none;
 	background: rgba(255,255,255,0.08);
 	color: #fff;
 	padding: 6px 12px;
@@ -230,42 +233,5 @@ canvas#mobileCanvas {
 		opacity: 1;
 		transform: translateY(0);
 	}
-}
-
-/* Gentle blink (subtle opacity pulse) */
-@keyframes blinkGentle {
-	0%, 100% { opacity: 1; }
-	50% { opacity: 0.88; }
-}
-
-/* Subtle floating motion (small vertical translate) */
-@keyframes floatSubtle {
-	0% { transform: translateY(0); }
-	25% { transform: translateY(-8px); }
-	50% { transform: translateY(0); }
-	75% { transform: translateY(8px); }
-	100% { transform: translateY(0); }
-}
-
-/* Utility classes: add to elements to enable the effects */
-.blink-gentle {
-	animation: blinkGentle 2.4s ease-in-out infinite;
-}
-
-.float-subtle {
-	display: inline-block; /* ensures transform doesn't affect layout flow */
-	will-change: transform, opacity;
-	transform-origin: center center;
-	animation: floatSubtle 3s ease-in-out infinite;
-}
-
-/* Example combined usage: keep entrance animation but add a longer floating motion */
-.main-title.float-subtle {
-	transform-origin: center center;
-	animation: titleEntrance 900ms ease-out forwards, floatSubtle 3s ease-in-out 600ms infinite;
-}
-
-.subtitle.blink-gentle {
-	animation: slideInSubtitle 700ms ease-out forwards, blinkGentle 2.4s ease-in-out 900ms infinite;
 }
 
